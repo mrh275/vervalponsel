@@ -13,8 +13,7 @@
         <h4>Selamat Datang</h4>
         <p class="lead" style="text-align: justify;">Ini adalah portal halaman depan dari aplikasi Verval Ponsel. Pada aplikasi ini kami pihak sekolah akan melakukan verifikasi nomor ponsel kalian untuk dapat diajukan agar kalian mendapatkan <span class="fw-bold">Bantuan Kuota Kemdikbud.</span></p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+
         </div>
       </div>
     </div>
@@ -25,40 +24,45 @@
   <div class="container-fluid text-center pt-5 mt-4">
     <h1 class="portal-kelas fw-bold">Kelas</h1>
 
-    <div class="container card-kelas my-4 py-4 d-flex justify-content-center">
-      <!-- Kelas 10 -->
-      <a href="<?= base_url('login') ?>" class="text-decoration-none">
-        <div class="card mx-3" style="width: 18rem;">
-          <img src="<?= base_url('assets/img') ?>/logo-super.png" class="card-img-top px-5 py-5" alt="logo-kelas">
-          <div class="card-body">
-            <h2 class="card-text">Kelas 10</h2>
-            <a href="<?= base_url('login') ?>" class="btn btn-primary">Masuk</a>
-          </div>
+    <div class="container card-kelas my-2 py-4">
+      <div class="row">
+        <div class="col-md-4 col-lg-4 my-2">
+          <!-- Kelas 10 -->
+          <a href="<?= base_url('login') ?>" class="text-decoration-none">
+            <div class="card bg-light mx-3">
+              <img src="<?= base_url('assets/img') ?>/logo-super.png" class="card-img-top logo-kelas px-5 py-5" alt="logo-kelas">
+              <div class="card-body">
+                <h2 class="card-text">Kelas 10</h2>
+                <a href="<?= base_url('login') ?>" class="btn btn-primary">Masuk</a>
+              </div>
+            </div>
+          </a>
         </div>
-      </a>
-
-      <!-- Kelas 10 -->
-      <a href="<?= base_url('login') ?>" class="text-decoration-none">
-        <div class="card mx-3" style="width: 18rem;">
-          <img src="<?= base_url('assets/img') ?>/logo-super.png" class="card-img-top px-5 py-5" alt="logo-kelas">
-          <div class="card-body">
-            <h2 class="card-text">Kelas 11</h2>
-            <a href="<?= base_url('login') ?>" class="btn btn-primary">Masuk</a>
-          </div>
+        <div class="col-md-4 col-lg-4 my-2">
+          <!-- Kelas 11 -->
+          <a href="<?= base_url('login') ?>" class="text-decoration-none">
+            <div class="card bg-light mx-3">
+              <img src="<?= base_url('assets/img') ?>/logo-super.png" class="card-img-top logo-kelas px-5 py-5" alt="logo-kelas">
+              <div class="card-body">
+                <h2 class="card-text">Kelas 11</h2>
+                <a href="<?= base_url('login') ?>" class="btn btn-primary">Masuk</a>
+              </div>
+            </div>
+          </a>
         </div>
-      </a>
-
-      <!-- Kelas 10 -->
-      <a href="<?= base_url('login') ?>" class="text-decoration-none">
-        <div class="card mx-3" style="width: 18rem;">
-          <img src="<?= base_url('assets/img') ?>/logo-super.png" class="card-img-top px-5 py-5" alt="logo-kelas">
-          <div class="card-body">
-            <h2 class="card-text">Kelas 12</h2>
-            <a href="<?= base_url('login') ?>" class="btn btn-primary">Masuk</a>
-          </div>
+        <div class="col-md-4 col-lg-4 my-2">
+          <!-- Kelas 12 -->
+          <a href="<?= base_url('login') ?>" class="text-decoration-none">
+            <div class="card bg-light mx-3">
+              <img src="<?= base_url('assets/img') ?>/logo-super.png" class="card-img-top logo-kelas px-5 py-5" alt="logo-kelas">
+              <div class="card-body">
+                <h2 class="card-text">Kelas 12</h2>
+                <a href="<?= base_url('login') ?>" class="btn btn-primary">Masuk</a>
+              </div>
+            </div>
+          </a>
         </div>
-      </a>
-
+      </div>
     </div>
   </div>
 </div>

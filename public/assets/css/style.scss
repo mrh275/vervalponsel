@@ -18,3 +18,134 @@ body {
 .card-kelas h2 {
     color: #212529;
 }
+
+.login-heroes {
+    max-width: 100%;
+}
+
+.show-password {
+    cursor: pointer;
+}
+
+form#login-form h4 {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.profile img {
+    cursor: pointer;
+}
+
+.profile .dropdown-menu {
+    left: -250px !important;
+    width: 300px; 
+}
+
+.animate {
+    animation-duration: 0.3s;
+    -webkit-animation-duration: 0.3s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+  }
+
+@media screen and (max-width: 991px) {
+    header .col-lg-11 {
+        justify-content: center;
+    }
+
+    footer .col-lg-6 {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media screen and (min-width: 768px) {
+  .navbar-menu {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 767px) {
+    .logo-kelas {
+        max-width: 70%;
+    }
+
+    .profile {
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile .dropdown-menu {
+        left: 0px !important;
+    }
+
+    .menu-bar {
+      text-align: center;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .logo-kelas {
+        max-width: 100%;
+    }
+    
+    .logo-brand {
+      display: flex;
+      justify-content: center;
+    }
+
+    .brand {
+      justify-content: center;
+    }
+}
+
+@media screen and (max-width: 486px) {
+    .ham-btn {
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+}
+
+/* Animation */
+
+@keyframes slideIn {
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  
+    100% {
+      transform: translateY(0rem);
+      opacity: 1;
+    }
+  
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  }
+  
+  @-webkit-keyframes slideIn {
+    0% {
+      -webkit-transform: transform;
+      -webkit-opacity: 0;
+    }
+  
+    100% {
+      -webkit-transform: translateY(0);
+      -webkit-opacity: 1;
+    }
+  
+    0% {
+      -webkit-transform: translateY(1rem);
+      -webkit-opacity: 0;
+    }
+  }
+  
+  .slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+  }

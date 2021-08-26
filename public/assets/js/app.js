@@ -10,3 +10,15 @@ window.addEventListener('scroll', () => {
         header.classList.remove('portal-header-shadow');
     }
 });
+
+/* Login Show Password */
+let showPasswordBtn = document.querySelector('.show-password');
+let inputPassword   = document.querySelector('.password');
+
+showPasswordBtn.addEventListener('change', e => {
+    if(e.target.checked) {
+        inputPassword.type = 'text';
+    } else {
+        inputPassword.type = 'password';
+    }
+})

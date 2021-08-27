@@ -27,7 +27,7 @@
             <div class="container-fluid mx-5">
                 <div class="row" style="text-align: center;">
                     <div class="logo-brand col-sm-2">
-                        <a class="navbar-brand me-0 home-button" href="javascript:void(0)">
+                        <a class="navbar-brand me-0 home-button" href="<?= base_url('user/dashboard') ?>">
                             <img src="<?= base_url('assets/img') ?>/logo.png" width="40" height="40" alt="" class="logo-verval">
                         </a>
                     </div>
@@ -52,12 +52,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link profile" href="javascript:void(0)">
+                            <a class="nav-link profile" href="<?= base_url('user/profile') ?>">
                                 <i class="uil uil-user"></i> Profil
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link data-ponsel" aria-current="page" href="javascript:void(0)">
+                            <a class="nav-link data-ponsel" aria-current="page" href="<?= base_url('user/data-ponsel') ?>">
                                 <i class="uil uil-mobile-android-alt"></i> Data Ponsel
                             </a>
                         </li>
@@ -119,76 +119,245 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="<?= base_url('assets/js') ?>/jquery.min.js"></script>
     <script src="<?= base_url('assets/js') ?>/sweetalert2.all.min.js"></script>
-    <script src="<?= base_url('assets/js') ?>/app.js"></script>
 
     <script>
-        /* Dashboard */
-        function userDashboard() {
+        function getProfile() {
             $.ajax({
-                url: "<?= base_url('user/home') ?>",
+                url: '<?= base_url('user/getProfile') ?>',
                 dataType: "json",
                 success: function(response) {
                     if (response.data) {
-                        let container = document.querySelector('.user-dashboard');
+                        let nama = document.querySelector('#nama');
+                        let kelas = document.querySelector('#kelas');
+                        let tempatLahir = document.querySelector('#tempat-lahir');
+                        let tanggalLahir = document.querySelector('#tanggal-lahir');
+                        let email = document.querySelector('#email');
+                        let alamat = document.querySelector('#alamat');
 
-                        container.innerHTML = '';
-                        container.innerHTML = response.data;
+                        nama.value = response.data.nama;
+                        kelas.value = response.data.kelas;
+                        tempatLahir.value = response.data.tempat_lahir;
+                        tanggalLahir.value = response.data.tanggal_lahir;
+                        email.value = response.data.email;
+                        alamat.innerHTML = response.data.alamat;
                     }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                 }
             });
         }
 
-        /* Profile Page */
-        function profile() {
+        function getDataPonsel() {
             $.ajax({
-                url: "<?= base_url('user/profile') ?>",
+                url: '<?= base_url('user/getPonsel') ?>',
                 dataType: "json",
                 success: function(response) {
                     if (response.data) {
-                        let container = document.querySelector('.user-dashboard');
+                        let nama = document.querySelector('#nama-ponsel');
+                        let kelas = document.querySelector('#kelas-ponsel');
+                        let nomorHp = document.querySelector('#nomor-hp');
+                        let isActive = document.querySelector('#is-active');
+                        let kepemilikan = document.querySelector('#kepemilikan');
 
-                        container.innerHTML = '';
-                        container.innerHTML = response.data
+                        nama.value = response.data.nama;
+                        kelas.value = response.data.kelas;
+                        nomorHp.value = response.data.nomor_hp;
+                        isActive.value = response.data.is_active;
+                        kepemilikan.value = response.data.kepemilikan;
                     }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                 }
             });
-        };
-
-        /* Data Ponsel Page */
-        function dataPonsel() {
-            $.ajax({
-                url: "<?= base_url('user/dataPonsel') ?>",
-                dataType: "json",
-                success: function(response) {
-                    if (response.data) {
-                        let container = document.querySelector('.user-dashboard');
-
-                        container.innerHTML = '';
-                        container.innerHTML = response.data
-                    }
-                }
-            });
-        };
+        }
 
         $(document).ready(function() {
-            userDashboard();
+            if (window.location.href == 'http://localhost:8080/user/profile') {
+                getProfile()
+            }
 
-            let profil = document.querySelector('a.profile');
-            profil.addEventListener('click', () => {
-                profile();
-            });
+            if (window.location.href == 'http://localhost:8080/user/data-ponsel') {
+                getDataPonsel()
+            }
 
-            let dataPonselBtn = document.querySelector('a.data-ponsel');
-            dataPonselBtn.addEventListener('click', () => {
-                dataPonsel();
-            });
+            $('form.form-edit-profile').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'post',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.error) {
+                            let nama = document.querySelector('#nama');
+                            let errorNama = document.querySelector('.errorNama');
+                            let tempatLahir = document.querySelector('#tempat-lahir');
+                            let errorTempatLahir = document.querySelector('.errorTempatLahir');
+                            let tanggalLahir = document.querySelector('#tanggal-lahir');
+                            let errorTanggalLahir = document.querySelector('.errorTanggalLahir');
+                            let email = document.querySelector('#email');
+                            let errorEmail = document.querySelector('.errorEmail');
+                            let alamat = document.querySelector('#alamat');
+                            let errorAlamat = document.querySelector('.errorAlamat');
 
-            let homeBtn = document.querySelector('a.home-button');
-            homeBtn.addEventListener('click', () => {
-                userDashboard();
-            });
+                            if (response.error.nama) {
+                                nama.classList.add('is-invalid');
+                                errorNama.innerHTML = response.error.nama;
+                            } else {
+                                nama.classList.remove('is-invalid');
+                                errorNama.innerHTML = '';
+                            }
+
+                            if (response.error.tmptLahir) {
+                                tempatLahir.classList.add('is-invalid');
+                                errorTempatLahir.innerHTML = response.error.tmptLahir;
+                            } else {
+                                tempatLahir.classList.remove('is-invalid');
+                                errorTempatLahir.innerHTML = '';
+                            }
+
+                            if (response.error.tglLahir) {
+                                tanggalLahir.classList.add('is-invalid');
+                                errorTanggalLahir.innerHTML = response.error.tglLahir;
+                            } else {
+                                tanggalLahir.classList.remove('is-invalid');
+                                errorTanggalLahir.innerHTML = '';
+                            }
+
+                            if (response.error.email) {
+                                email.classList.add('is-invalid');
+                                errorEmail.innerHTML = response.error.email;
+                            } else {
+                                email.classList.remove('is-invalid');
+                                errorEmail.innerHTML = '';
+                            }
+
+                            if (response.error.alamat) {
+                                alamat.classList.add('is-invalid');
+                                errorAlamat.innerHTML = response.error.alamat;
+                            } else {
+                                alamat.classList.remove('is-invalid');
+                                errorAlamat.innerHTML = '';
+                            }
+
+                        } else {
+                            Swal.fire({
+                                title: 'Sedang memeriksa data',
+                                timer: 1000,
+                                allowEscapeKey: false,
+                                allowOutsideClick: false,
+                                didOpen: function() {
+                                    Swal.showLoading()
+                                }
+                            }).then(
+                                (dismiss) => {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Data berhasil diubah!',
+                                        text: 'Data profil kamu sudah dirubah..',
+                                        timer: 1000,
+                                        showConfirmButton: false
+                                    }).then(
+                                        (dismiss) => {
+                                            window.location.href = '<?= base_url('user/profile') ?>'
+                                        }
+                                    )
+                                }
+                            )
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            })
+
+            $('form.form-edit-ponsel').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'post',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.error) {
+                            let nama = document.querySelector('#nama-ponsel');
+                            let errorNama = document.querySelector('.errorNama');
+                            let nomorHP = document.querySelector('#nomor-hp');
+                            let errorNomorHP = document.querySelector('.errorNoHP');
+                            let isActive = document.querySelector('#is-active');
+                            let errorIsActive = document.querySelector('.errorIsActive');
+                            let kepemilikan = document.querySelector('#kepemilikan');
+                            let errorKepemilikan = document.querySelector('.errorKepemilikan');
+
+                            if (response.error.nama) {
+                                nama.classList.add('is-invalid');
+                                errorNama.innerHTML = response.error.nama;
+                            } else {
+                                nama.classList.remove('is-invalid');
+                                errorNama.innerHTML = '';
+                            }
+
+                            if (response.error.nomorHP) {
+                                nomorHP.classList.add('is-invalid');
+                                errorNomorHP.innerHTML = response.error.nomorHP;
+                            } else {
+                                nomorHP.classList.remove('is-invalid');
+                                errorNomorHP.innerHTML = '';
+                            }
+
+                            if (response.error.isActive) {
+                                isActive.classList.add('is-invalid');
+                                errorIsActive.innerHTML = response.error.isActive;
+                            } else {
+                                isActive.classList.remove('is-invalid');
+                                errorIsActive.innerHTML = '';
+                            }
+
+                            if (response.error.kepemilikan) {
+                                kepemilikan.classList.add('is-invalid');
+                                errorKepemilikan.innerHTML = response.error.kepemilikan;
+                            } else {
+                                kepemilikan.classList.remove('is-invalid');
+                                errorKepemilikan.innerHTML = '';
+                            }
+
+                        } else {
+                            Swal.fire({
+                                title: 'Sedang memeriksa data',
+                                timer: 1000,
+                                allowEscapeKey: false,
+                                allowOutsideClick: false,
+                                didOpen: function() {
+                                    Swal.showLoading()
+                                }
+                            }).then(
+                                (dismiss) => {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Data berhasil diubah!',
+                                        text: 'Data ponsel kamu sudah dirubah.',
+                                        timer: 1000,
+                                        showConfirmButton: false
+                                    }).then(
+                                        (dismiss) => {
+                                            window.location.href = '<?= base_url('user/data-ponsel') ?>'
+                                        }
+                                    )
+                                }
+                            )
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            })
         })
     </script>
+
 </body>
 
 </html>

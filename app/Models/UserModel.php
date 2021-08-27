@@ -25,4 +25,9 @@ class UserModel extends Model
 	{
 		$this->db->table('data-ponsel')->where(['nis' => $data['nis']])->update($data);
 	}
+
+	public function updatePassword($data)
+	{
+		$this->db->table('user')->where(['username' => $data['username']])->update($data);
+	}
 }

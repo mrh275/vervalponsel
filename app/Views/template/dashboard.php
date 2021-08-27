@@ -48,7 +48,7 @@
                     <ul class="navbar-nav menu-bar mb-2 me-2 mb-md-0">
                         <li class="nav-item">
                             <a href="javascript:void(0)" class="nav-link">
-                                Muhamad Ramdani Hidayatullah [12 IPA 1]
+                                <?= $_SESSION['nama'] . ' [' . $_SESSION['kelas'] . ']' ?>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -59,6 +59,11 @@
                         <li class="nav-item">
                             <a class="nav-link data-ponsel" aria-current="page" href="<?= base_url('user/data-ponsel') ?>">
                                 <i class="uil uil-mobile-android-alt"></i> Data Ponsel
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link data-ponsel" aria-current="page" href="<?= base_url('user/change-password') ?>">
+                                <i class="uil uil-key-skeleton-alt"></i> Ganti Kata Sandi
                             </a>
                         </li>
                         <li class="nav-item">
@@ -174,11 +179,11 @@
         }
 
         $(document).ready(function() {
-            if (window.location.href == 'http://localhost:8080/user/profile') {
+            if (window.location.href == 'https://vervalponsel.sman1rawamerta.sch.id/user/profile') {
                 getProfile()
             }
 
-            if (window.location.href == 'http://localhost:8080/user/data-ponsel') {
+            if (window.location.href == 'https://vervalponsel.sman1rawamerta.sch.id/user/data-ponsel') {
                 getDataPonsel()
             }
 
@@ -354,6 +359,86 @@
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
+            })
+
+            $('form.form-ganti-sandi').submit(function(e) {
+                e.preventDefault();
+                let str = document.querySelector('#password1').value;
+                if (/\d/.test(str) == true) {
+                    if (str.includes('_') || str.includes('@') || str.includes('-') || str.includes('.') || str.includes('#')) {
+                        $.ajax({
+                            type: 'post',
+                            url: $(this).attr('action'),
+                            data: $(this).serialize(),
+                            dataType: "json",
+                            success: function(response) {
+                                if (response.error) {
+                                    let password1 = document.querySelector('#password1');
+                                    let errorPassword1 = document.querySelector('.errorPassword1');
+                                    let password2 = document.querySelector('#password2');
+                                    let errorPassword2 = document.querySelector('.errorPassword2');
+
+                                    if (response.error.password1) {
+                                        password1.classList.add('is-invalid');
+                                        errorPassword1.innerHTML = response.error.password1;
+                                    } else {
+                                        password1.classList.remove('is-invalid');
+                                        errorPassword1.innerHTML = '';
+                                    }
+
+                                    if (response.error.password2) {
+                                        password2.classList.add('is-invalid');
+                                        errorPassword2.innerHTML = response.error.password2;
+                                    } else {
+                                        password2.classList.remove('is-invalid');
+                                        errorPassword2.innerHTML = '';
+                                    }
+
+                                } else {
+                                    Swal.fire({
+                                        title: 'Sedang memeriksa data',
+                                        timer: 1000,
+                                        allowEscapeKey: false,
+                                        allowOutsideClick: false,
+                                        didOpen: function() {
+                                            Swal.showLoading()
+                                        }
+                                    }).then(
+                                        (dismiss) => {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Password berhasil diubah!',
+                                                text: 'Kata sandi kamu berhasil dirubah.',
+                                                showConfirmButton: true,
+                                                confirmButtonText: 'Tutup'
+                                            })
+                                        }
+                                    )
+                                }
+
+
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                            }
+                        });
+                    } else {
+                        let password1 = document.querySelector('#password1');
+                        let errorPassword1 = document.querySelector('.errorPassword1');
+
+                        password1.classList.add('is-invalid');
+                        errorPassword1.innerHTML = 'Kata sandi harus gabungan dari huruf, angka dan salah satu dari simbol <span class="fw-bold">@ - _ . #</span>';
+                    }
+                } else {
+                    let password1 = document.querySelector('#password1');
+                    let errorPassword1 = document.querySelector('.errorPassword1');
+
+                    password1.classList.add('is-invalid');
+                    errorPassword1.innerHTML = 'Kata sandi harus gabungan dari huruf, angka dan salah satu dari simbol <span class="fw-bold">@ - _ . #</span>';
+                }
+
+
+
             })
         })
     </script>

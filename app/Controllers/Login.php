@@ -51,11 +51,13 @@ class Login extends BaseController
                     'password'  => $this->request->getVar('password')
                 ];
 
-                $sesi = [
-                    'nis'   => $data['username']
-                ];
-
                 $dataHasil = $this->loginModel->cekData($data);
+
+                $sesi = [
+                    'nis'   => $dataHasil['username'],
+                    'nama'  => $dataHasil['nama'],
+                    'kelas' => $dataHasil['kelas']
+                ];
 
                 if ($dataHasil == false) {
                     $msg = [

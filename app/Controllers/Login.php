@@ -6,6 +6,10 @@ class Login extends BaseController
 {
     public function home()
     {
+        if (session()->get('nis')) {
+            return redirect()->to('user/dashboard');
+        }
+
         $data = [
             'title'     => 'Login | Verval Ponsel SMA Negeri 1 Rawamerta'
         ];

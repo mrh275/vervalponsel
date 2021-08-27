@@ -35,6 +35,7 @@ $routes->get('/', 'Portal::index');
 $routes->get('/login', 'Login::home');
 $routes->get('/user', 'User::dashboard');
 $routes->get('/user/data-ponsel', 'User::dataPonsel');
+$routes->get('/user/change-password', 'User::gantiSandi');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

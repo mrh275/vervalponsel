@@ -23,7 +23,7 @@
 
     <div class="container-fluid px-0 sticky-top portal-header">
         <header class="bg-light py-3 mb-4">
-            <div class="row">
+            <div class="row g-0">
                 <div class="col-lg-1 d-flex justify-content-center">
                     <a href="/" class="">
                         <img src="<?= base_url('assets/img') ?>/logo.png" class="my-3 ms-4" alt="logo-sman1rawamerta" width="40" height="40">

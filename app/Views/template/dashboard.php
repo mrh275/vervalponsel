@@ -411,7 +411,11 @@
                                                 text: 'Kata sandi kamu berhasil dirubah.',
                                                 showConfirmButton: true,
                                                 confirmButtonText: 'Tutup'
-                                            })
+                                            }).then(
+                                                (dismiss) => {
+                                                    window.location.href = '<?= base_url('user/dashboard') ?>'
+                                                }
+                                            )
                                         }
                                     )
                                 }

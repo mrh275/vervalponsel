@@ -56,6 +56,9 @@ form#login-form h4 {
         -ms-flex-pack: center;
             justify-content: center;
   }
+  .portal-header header img {
+    margin-left: 0 !important;
+  }
   footer .col-lg-6 {
     display: -webkit-box;
     display: -ms-flexbox;

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css') ?>/style.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <link rel="shortcut icon" href="<?= base_url('assets/img') ?>/favicon.png" type="image/x-icon">
 
@@ -55,6 +56,11 @@
                         <li class="nav-item">
                             <a class="nav-link data-ponsel" aria-current="page" href="<?= base_url('admin/data-ponsel') ?>">
                                 <i class="uil uil-mobile-android-alt"></i> Data Ponsel
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link data-ponsel" aria-current="page" href="<?= base_url('admin/akun-siswa') ?>">
+                                <i class="uil uil-mobile-android-alt"></i> Akun Siswa
                             </a>
                         </li>
                         <li class="nav-item">
@@ -119,23 +125,13 @@
     <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        function getDataPonsel() {
+        function getUserAkun() {
             $.ajax({
-                url: '<?= base_url('admin/getPonsel') ?>',
+                url: '<?= base_url('admin/getUserAkun') ?>',
                 dataType: "json",
                 success: function(response) {
-                    if (response.data) {
-                        let nama = document.querySelector('#nama-ponsel');
-                        let kelas = document.querySelector('#kelas-ponsel');
-                        let nomorHp = document.querySelector('#nomor-hp');
-                        let isActive = document.querySelector('#is-active');
-                        let kepemilikan = document.querySelector('#kepemilikan');
-
-                        nama.value = response.data.nama;
-                        kelas.value = response.data.kelas;
-                        nomorHp.value = response.data.nomor_hp;
-                        isActive.value = response.data.is_active;
-                        kepemilikan.value = response.data.kepemilikan;
+                    if (response.sukses) {
+                        document.querySelector('.akun-siswa').innerHTML = response.sukses;
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
@@ -145,19 +141,82 @@
         }
 
         $(document).ready(function() {
-            var table = $('#dataponsel').DataTable({
+            getUserAkun();
+            // Datatable Data Ponsel
+            var dataponsel = $('#dataponsel').DataTable({
                 "scrollX": true,
             });
-            // getDataPonsel()
 
             $('#dataponsel tbody').on('click', 'tr', function() {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                 } else {
-                    table.$('tr.selected').removeClass('selected');
+                    dataponsel.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected')
                 }
             });
+
+
+
+            $('form.form-ganti-sandi').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'post',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.error) {
+                            let password1 = document.querySelector('#password1');
+                            let errorPassword1 = document.querySelector('.errorPassword1');
+                            let password2 = document.querySelector('#password2');
+                            let errorPassword2 = document.querySelector('.errorPassword2');
+
+                            if (response.error.password1) {
+                                password1.classList.add('is-invalid');
+                                errorPassword1.innerHTML = response.error.password1;
+                            } else {
+                                password1.classList.remove('is-invalid');
+                                errorPassword1.innerHTML = '';
+                            }
+
+                            if (response.error.password2) {
+                                password2.classList.add('is-invalid');
+                                errorPassword2.innerHTML = response.error.password2;
+                            } else {
+                                password2.classList.remove('is-invalid');
+                                errorPassword2.innerHTML = '';
+                            }
+
+                        } else {
+                            Swal.fire({
+                                title: 'Sedang memeriksa data',
+                                timer: 1000,
+                                allowEscapeKey: false,
+                                allowOutsideClick: false,
+                                didOpen: function() {
+                                    Swal.showLoading()
+                                }
+                            }).then(
+                                (dismiss) => {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Password berhasil diubah!',
+                                        text: 'Kata sandi kamu berhasil dirubah.',
+                                        showConfirmButton: true,
+                                        confirmButtonText: 'Tutup'
+                                    })
+                                }
+                            )
+                        }
+
+
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            })
         })
     </script>
 

@@ -57,5 +57,6 @@ class BaseController extends Controller
 
 		$this->loginModel = new \App\Models\LoginModel;
 		$this->userModel = new \App\Models\UserModel;
+		$this->adminModel = new \App\Models\AdminModel;
 	}
 }

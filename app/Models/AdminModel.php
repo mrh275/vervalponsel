@@ -15,4 +15,9 @@ class AdminModel extends Model
 	{
 		return $this->db->table('data-ponsel')->get()->getResultArray();
 	}
+
+	public function getUserSiswa()
+	{
+		return $this->db->table('user')->get()->getResultArray();
+	}
 }

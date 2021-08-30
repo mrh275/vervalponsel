@@ -440,9 +440,6 @@
                     password1.classList.add('is-invalid');
                     errorPassword1.innerHTML = 'Kata sandi harus gabungan dari huruf, angka dan salah satu dari simbol <span class="fw-bold">@ - _ . #</span>';
                 }
-
-
-
             })
         })
     </script>

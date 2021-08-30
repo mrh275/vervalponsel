@@ -14,7 +14,7 @@
 
         <div class="row pt-2 pb-4">
             <div class="col-md-12">
-                <button class="btn btn-success edit-data-ponsel" type="button" onclick="removeReadonly()"><i class="uil uil-edit"></i> Edit Profil</button>
+                <a href="<?= base_url('exportexcel/exportdataponsel') ?>" class="btn btn-success edit-data-ponsel" onclick="exportExcel()"><i class="bi bi-file-earmark-excel"></i> Export Excel</a>
             </div>
         </div>
 
@@ -50,7 +50,7 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         //Fungsi seleksi row table
         $('#dataponsel tbody').on('click', 'tr', function() {
@@ -62,6 +62,6 @@
             }
         });
     })
-</script>
+</script> -->
 
 <?= $this->endSection() ?>

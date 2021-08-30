@@ -50,6 +50,15 @@ form#login-form h4 {
   -webkit-animation-fill-mode: both;
 }
 
+table.table-hover tbody tr:hover {
+  background-color: rgba(0, 119, 255, 0.3) !important;
+  cursor: pointer;
+}
+
+table.table-hover tbody tr.selected {
+  background-color: rgba(0, 119, 255, 0.3);
+}
+
 @media screen and (max-width: 991px) {
   header .col-lg-11 {
     -webkit-box-pack: center;

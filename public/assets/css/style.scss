@@ -46,7 +46,20 @@ form#login-form h4 {
     -webkit-animation-duration: 0.3s;
     animation-fill-mode: both;
     -webkit-animation-fill-mode: both;
+}
+
+table.table-hover {
+  tbody {
+    tr:hover {
+      background-color: rgba(0, 119, 255, 0.3) !important;
+      cursor: pointer;
+    }
+
+    tr.selected {
+      background-color: rgba(0, 119, 255, 0.3);
+    }
   }
+}
 
 @media screen and (max-width: 991px) {
     header .col-lg-11 {

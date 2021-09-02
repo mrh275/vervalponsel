@@ -15,6 +15,6 @@ writable/uploads/*
 
 writable/debugbar/*
 
-vendor/
+
 
 php_errors.log

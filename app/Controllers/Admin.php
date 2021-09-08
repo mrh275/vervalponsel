@@ -38,9 +38,10 @@ class Admin extends BaseController
 	{
 		$data = [
 			'title'			=> 'User Siswa | Verval Ponsel SMA Negeri 1 Rawamerta',
+			'akunSiswa'	=> $this->adminModel->getUserSiswa()
 		];
 
-		return view('admin/akun-siswa', $data);
+		return view('admin/akun-siswa-table', $data);
 	}
 
 	public function getUserAkun()

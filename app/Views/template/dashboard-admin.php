@@ -125,23 +125,7 @@
     <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        function getUserAkun() {
-            $.ajax({
-                url: '<?= base_url('admin/getUserAkun') ?>',
-                dataType: "json",
-                success: function(response) {
-                    if (response.sukses) {
-                        document.querySelector('.akun-siswa').innerHTML = response.sukses;
-                    }
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                }
-            });
-        }
-
         $(document).ready(function() {
-            getUserAkun();
             // Datatable Data Ponsel
             var dataponsel = $('#dataponsel').DataTable({
                 "scrollX": true,
@@ -156,7 +140,19 @@
                 }
             });
 
+            // Datatable Akun Siswa
+            var akunsiswa = $('#akunsiswa').DataTable({
+                "scrollX": true,
+            });
 
+            $('#akunsiswa tbody').on('click', 'tr', function() {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    akunsiswa.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected')
+                }
+            });
 
             $('form.form-ganti-sandi').submit(function(e) {
                 e.preventDefault();
@@ -205,7 +201,12 @@
                                         text: 'Kata sandi kamu berhasil dirubah.',
                                         showConfirmButton: true,
                                         confirmButtonText: 'Tutup'
-                                    })
+                                    }).then(
+                                        (didClose) => {
+                                            $('.editAkun').modal('hide')
+                                            window.location.href = "<?= base_url('admin/akun-siswa') ?>"
+                                        }
+                                    )
                                 }
                             )
                         }

@@ -118,7 +118,7 @@ class Login extends BaseController
                 $dataHasil = $this->adminModel->cekData($data);
 
                 $sesi = [
-                    'username'      => $dataHasil['username'],
+                    'admin'         => $dataHasil['username'],
                     'nama'          => $dataHasil['nama'],
                 ];
 

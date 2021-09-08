@@ -36,6 +36,7 @@ $routes->get('/login', 'Login::home');
 $routes->get('/user', 'User::dashboard');
 $routes->get('/user/data-ponsel', 'User::dataPonsel');
 $routes->get('/user/change-password', 'User::gantiSandi');
+$routes->get('/admin', 'Admin::dashboard');
 $routes->get('/admin/data-ponsel', 'Admin::dataPonsel');
 $routes->get('/admin/akun-siswa', 'Admin::akunSiswa');
 /*

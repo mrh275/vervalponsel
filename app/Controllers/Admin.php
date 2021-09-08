@@ -8,6 +8,10 @@ class Admin extends BaseController
 {
 	public function login()
 	{
+		if (session()->get('admin')) {
+			return redirect()->to('admin/dashboard');
+		}
+
 		$data = [
 			'title'	=> 'Login Admin | Verval Ponsel SMA Negeri 1 Rawamerta'
 		];
@@ -17,6 +21,10 @@ class Admin extends BaseController
 
 	public function dashboard()
 	{
+		if (!session()->get('admin')) {
+			return redirect()->to('admin/login');
+		}
+
 		$data = [
 			'title'	=> 'Dashboard Admin | Verval Ponsel SMA Negeri 1 Rawamerta'
 		];
@@ -26,6 +34,10 @@ class Admin extends BaseController
 
 	public function dataPonsel()
 	{
+		if (!session()->get('admin')) {
+			return redirect()->to('admin/login');
+		}
+
 		$data = [
 			'title'			=> 'Data Ponsel | Verval Ponsel SMA Negeri 1 Rawamerta',
 			'dataPonsel'	=> $this->adminModel->getDataPonsel()
@@ -36,28 +48,16 @@ class Admin extends BaseController
 
 	public function akunSiswa()
 	{
+		if (!session()->get('admin')) {
+			return redirect()->to('admin/login');
+		}
+
 		$data = [
 			'title'			=> 'User Siswa | Verval Ponsel SMA Negeri 1 Rawamerta',
 			'akunSiswa'	=> $this->adminModel->getUserSiswa()
 		];
 
 		return view('admin/akun-siswa-table', $data);
-	}
-
-	public function getUserAkun()
-	{
-		if ($this->request->isAJAX()) {
-
-			$data = [
-				'akunSiswa'	=> $this->adminModel->getUserSiswa()
-			];
-
-			$msg = [
-				'sukses' => view('admin/data-ponsel-table', $data),
-			];
-
-			echo json_encode($msg);
-		}
 	}
 
 	public function gantiPasswordSiswa()

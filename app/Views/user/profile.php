@@ -19,6 +19,7 @@
         </div>
 
         <form class="form-group form-edit-profile" action="<?= base_url('user/editProfile') ?>">
+            <?= csrf_field() ?>
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">

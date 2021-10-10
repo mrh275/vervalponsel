@@ -13,6 +13,7 @@
         </div>
 
         <form class="form-group form-ganti-sandi" action="<?= base_url('user/gantiPassword') ?>">
+            <?= csrf_field() ?>
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
